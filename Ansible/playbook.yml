@@ -1,0 +1,12 @@
+- name: Install Docker
+  hosts: all
+  roles:
+    - docker
+- name: Install Jenkins on master
+  hosts: bastion
+  roles:
+    - jenkins-master
+- name: Install Jenkins on agent
+  hosts: private
+  roles:
+    - jenkins-agent

@@ -1,0 +1,28 @@
+- name: Create Jenkins home directory on host
+  ansible.builtin.file:
+    path: /home/ubuntu/jenkins_home
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Install python3-requests
+  apt:
+    name: python3-requests
+    state: present
+    update_cache: yes
+
+- name: Run jenkins master container
+  community.docker.docker_container:
+    name: jenkins-master
+    image: jenkins/jenkins:lts
+    detach: true
+    state: started
+    recreate: true
+    restart_policy: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/:/var/run/
+      - /home/ubuntu/jenkins_home:/var/jenkins_home
+      - /usr/bin/docker:/usr/bin/docker

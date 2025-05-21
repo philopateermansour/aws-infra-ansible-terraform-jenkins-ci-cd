@@ -1,0 +1,3 @@
+Terraform/.terraform
+Terraform/.terraform.lock.hcl
+Terraform/ssh-key-pair.pem

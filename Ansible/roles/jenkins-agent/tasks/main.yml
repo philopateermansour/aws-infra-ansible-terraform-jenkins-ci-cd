@@ -1,0 +1,18 @@
+- name: Install python3-requests
+  apt:
+    name: python3-requests
+    state: present
+    update_cache: yes
+
+- name: Run jenkins agent container
+  community.docker.docker_container:
+    name: jenkins-agent
+    image: philopatermansour/jenkins-agent:latest
+    detach: true
+    state: started
+    interactive: true
+    recreate: true
+    restart_policy: unless-stopped
+    volumes:
+      - /var/run/:/var/run/
+      - /usr/bin/docker:/usr/bin/docker
