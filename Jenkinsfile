@@ -30,6 +30,7 @@ pipeline {
             steps {
                     sh '''
                         docker rm -f philopateer-simple-website || true
+                        docker rmi philopatermansour/philopateer-simple-website:latest || true
                         docker run -d -p 80:80 --name philopateer-simple-website philopateer/philopateer-simple-website:latest
                     '''
         }
