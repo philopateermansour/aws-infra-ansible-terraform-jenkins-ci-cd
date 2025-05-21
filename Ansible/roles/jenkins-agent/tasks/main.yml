@@ -7,6 +7,7 @@
 - name: Run jenkins agent container
   community.docker.docker_container:
     name: jenkins-agent
+    user: root
     image: philopatermansour/jenkins-agent:latest
     detach: true
     state: started

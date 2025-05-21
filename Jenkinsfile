@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh '''
                     cd website
-                    docker build -t philopateer/philopateer-simple-website .
+                    docker build -t philopateer/philopateer-simple-website:latest .
                 '''
             }
         }
@@ -20,7 +20,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'philopateer-dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh '''
                         echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                        docker push philopateer/philopateer-simple-website
+                        docker push philopateer/philopateer-simple-website:latest
+                        docker logout
                     '''
                 }
             }
@@ -29,7 +30,7 @@ pipeline {
             steps {
                     sh '''
                         docker rm -f philopateer-simple-website || true
-                        docker run -d -p 80:80 --name philopateer-simple-website philopateer/philopateer-simple-website
+                        docker run -d -p 80:80 --name philopateer-simple-website philopateer/philopateer-simple-website:latest
                     '''
         }
     }
