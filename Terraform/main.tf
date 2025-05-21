@@ -24,6 +24,7 @@ module "load_balancer" {
   lb_sg_id = module.security.lb_sg_id
   public_subnet_ids = module.network.public-subnets
   vpc_id = module.network.vpc-id
+  instance_id = module.compute.app_instance_id
 }
 module "security" {
   source = "./modules/security"
