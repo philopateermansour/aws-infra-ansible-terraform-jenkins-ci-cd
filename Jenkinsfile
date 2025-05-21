@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh '''
                     cd website
-                    docker build -t philopateer/philopateer-simple-website:latest .
+                    docker build -t philopatermansour/philopateer-simple-website:latest .
                 '''
             }
         }
@@ -20,7 +20,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'philopateer-dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh '''
                         echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                        docker push philopateer/philopateer-simple-website:latest
+                        docker push philopatermansour/philopateer-simple-website:latest
                         docker logout
                     '''
                 }
